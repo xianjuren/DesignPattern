@@ -1,0 +1,44 @@
+
+View实践
+
+1.View拆分
+	View 在开发中的粒度如果一个界面只有一个业务模块那整个界面应该是一个View,并对应一个Presenter,
+	如果有两个业务模块则对应的是两个View和两个Presenter.
+
+	简单概括View的拆分原则：
+    1. 同一个界面业务相对独立的View应该单独做为一个View。     注：按逻辑拆分可以更好用复用不同界面相逻辑显示逻辑的情况
+     2. 在原则1的基础上View的业务代码太多需要更细粒度的拆分View。    注：可以增加代码的可读性和可维护性
+
+2.View的实现
+View需要向Presenter提供业务显示的方法，并持有Presenter引用反馈UI交互。
+所以View实现方式为 extends 适合的ViewGroup(如：FrameLayout,LinearLayout,RelativeLayout等适合自己的布局方式)
+并implements BaseView. BaseView提供setPresenter方法和getView方法。
+在合适时间用findViewById方法找到对应的子View 一般用重写onFinishInflate方法实现
+为了避免View导致的内存泄漏问题，View中的交互事件都由View监听，如click事件。当发生点击时调用Presenter所对应的业务方法。
+在这里没有使用command模式是因为，这样可以减少类的数量，对presenter减少对command判断的步骤，同时就会牺牲灵活性。
+
+
+Presenter实践
+
+Presenter是View与Model之间的纽带，所以它即会关心传入的业务View也会关心Model更新的数据。每个V应该对应一个Presenter,
+即每一个界面应该对应一种业务逻辑。在V展视之前应该把View与Presenter bind,
+一般在Activity的onCreate或Fragment的onViewCreated的方法里，实例化Presenter并bindView.
+Presenter与Model交互主要能过Presenter持有Model的方法调用Model的业务方法，Model在操作完成后并以观察者的方式返回数据
+
+
+Model实践
+
+        Model 在设计中主要承担的是数据获取和组装，典型的示例为数据库的读取。 以数据库读取为例. 会经历以下步骤 
+        1. 观察者注册到Model观察数据
+        2. 观察者发起查询或操作
+        3. Model收到发起数据库查询（一般耗时操作都会放在主线程中完成） 
+        4. Model查询完成以后封装数据
+        5. Model 在UI线程中通知观察者 Model在实践中一般会有以下职责
+        读取数据
+        数据封装
+        基本数据筛选
+        通知数据
+        不会有以下职责
+        更新View
+        业务处理，如更改数据状态，记录数据时间
+        跳转界面

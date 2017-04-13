@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DesignPattern</string>
+    <string name="classNum1">classOne</string>
+    <string name="classNum2">classTwo</string>
+</resources>

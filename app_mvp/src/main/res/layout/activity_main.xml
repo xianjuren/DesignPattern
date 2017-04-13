@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.design.designpattern.activity.MainActivity">
+
+
+    <com.design.designpattern.mvp.view.StudentNameLinearLayout
+        android:id="@+id/studentNameLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_one_show"
+            style="@style/text_class_info"
+            android:text="@string/classNum1"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:background="@color/line_color"/>
+
+        <TextView
+            android:id="@+id/tv_two_show"
+            style="@style/text_class_info"
+            android:text="@string/classNum2"/>
+
+        <ListView
+            android:id="@+id/lv_name_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.design.designpattern.mvp.view.StudentNameLinearLayout>
+
+
+</RelativeLayout>
